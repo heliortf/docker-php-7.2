@@ -54,3 +54,9 @@ RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sou
 RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get -y --allow-unauthenticated install msodbcsql17
 
+# Instala a biblioteca GD
+RUN apt-get update -y && apt-get install -y libpng-dev
+RUN docker-php-ext-install gd
+
+# Instala as extensões do mysql e mysqli
+RUN docker-php-ext-install pdo_mysql mysqli
