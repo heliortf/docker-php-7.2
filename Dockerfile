@@ -36,6 +36,11 @@ RUN apt-get update && \
 # Instala os headers de drivers odbc 
 RUN apt-get -y install unixodbc-dev
 
+# Instala bibliotecas SSL para o MONGO DB
+#RUN apt-get -y install libcurl4-openssl-dev 
+RUN apt-get -y install pkg-config 
+RUN apt-get -y install libssl-dev 
+
 # Instala o driver do Mongo DB
 RUN pecl install mongodb
 # Instala o driver do sql server para o PHP
