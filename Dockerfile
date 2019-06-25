@@ -65,3 +65,9 @@ RUN docker-php-ext-install gd
 
 # Instala as extensões do mysql e mysqli
 RUN docker-php-ext-install pdo_mysql mysqli
+
+# Habilita o Mod Rewrite do Apache 2
+RUN a2enmod rewrite
+
+# Habilita o SSL do Apache 2
+RUN a2enmod ssl
