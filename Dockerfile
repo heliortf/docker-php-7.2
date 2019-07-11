@@ -71,3 +71,8 @@ RUN a2enmod rewrite
 
 # Habilita o SSL do Apache 2
 RUN a2enmod ssl
+
+RUN yes | pecl install xdebug-2.7.2 \
+    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
