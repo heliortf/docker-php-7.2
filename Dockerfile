@@ -4,9 +4,6 @@ LABEL Name=PHP-7.2 Version=1.0
 # Expoe a porta 80
 EXPOSE 80
 
-# Adiciono o volume
-VOLUME [ "/var/www/html" ]
-
 # Copia a configuração do PHP para a pasta do apache
 COPY ./php.ini ${PHP_INI_DIR}/php.ini
 
@@ -54,7 +51,9 @@ RUN docker-php-ext-enable pdo_sqlsrv
 
 
 # Instala o driver ODBC do sql server
+RUN apt-get -y install gnupg
 RUN apt-get install apt-transport-https
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
 RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get -y --allow-unauthenticated install msodbcsql17
@@ -76,3 +75,6 @@ RUN yes | pecl install xdebug-2.7.2 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
+
+# Instala o GhostScript
+RUN apt-get update && apt-get -y install ghostscript && apt-get clean
